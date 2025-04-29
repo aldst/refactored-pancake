@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using Quote.Contracts;
 using Quote.Models;
@@ -9,10 +10,12 @@ namespace PruebaIngreso.Controllers
     public class HomeController : Controller
     {
         private readonly IQuoteEngine quote;
+        private readonly IMarginProvider marginProvider;
 
-        public HomeController(IQuoteEngine quote)
+        public HomeController(IQuoteEngine quote, IMarginProvider marginProvider)
         {
             this.quote = quote;
+            this.marginProvider = marginProvider;
         }
 
         public ActionResult Index()
@@ -50,9 +53,10 @@ namespace PruebaIngreso.Controllers
             return View();
         }
 
-        public ActionResult Test3()
+        public async Task<ActionResult> Test3(string code)
         {
-            return View();
+            decimal margin = await this.marginProvider.GetMarginByClient(code);
+            return View(margin);
         }
 
         public ActionResult Test4()

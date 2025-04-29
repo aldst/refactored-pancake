@@ -1,4 +1,15 @@
 ﻿@{
     ViewBag.Title = "Test 3";
+    ViewBag.MarginValue = Model;
 }
 <h2>@ViewBag.Title.</h2>
+
+<form asp-action="Test3" method="post">
+    <div class="my-5">
+        <label for="code" class="form-label">Código:</label>
+        <input type="text" class="form-control" id="code" name="code" required value="E-U10-UNILATIN" />
+    </div>
+    <button type="submit" class="btn btn-success mt-5">Enviar</button>
+</form>
+
+<h4 class="mt-3">El valor del margen es: @ViewBag.MarginValue </h4>
